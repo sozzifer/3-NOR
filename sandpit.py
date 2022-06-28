@@ -1,4 +1,5 @@
 import pandas as pd
+from dash import Dash, html, dcc, Input, Output
 
 happy_df = pd.read_csv("happy.csv")
 stats_df = happy_df[["Total happiness", "Sex"]].dropna()

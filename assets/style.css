@@ -1,3 +1,25 @@
+:root {
+    --lime: #9eab05;
+    --charcoal: #424a52;
+    --pink: #d10373;
+    --purple: #6a2150;
+    --red: #c70540;
+    --yellow: #e3ba12;
+    --gold: #f49103;
+    --aqua: #0085a1;
+    --blue: #003896;
+    --green: #006338;
+    --midgrey: #adafaf;
+    --ltgrey: #f3f3f3;
+}
+
 body {
     font-family: sans-serif;
 }
+
+td {
+    padding: 5px;
+    border: solid black 1pt;
+    border-collapse: collapse
+}
+
