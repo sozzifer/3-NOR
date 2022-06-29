@@ -15,11 +15,9 @@
 
 body {
     font-family: sans-serif;
+    margin: 30px
 }
 
 td {
-    padding: 5px;
-    border: solid black 1pt;
-    border-collapse: collapse
+    padding: 5px
 }
-
