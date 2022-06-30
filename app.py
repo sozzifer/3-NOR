@@ -127,8 +127,8 @@ def update_statistics(value):
 def update_histogram(value):
     hist_df = happy_df[["Total happiness", value]].dropna()
     categories = hist_df[value].unique()
-    hist_df1 = hist_df[(hist_df[value] == categories[0])]
-    hist_df2 = hist_df[(hist_df[value] == categories[1])]
+    hist_df1 = hist_df["Total happiness"][(hist_df[value] == categories[0])]
+    hist_df2 = hist_df["Total happiness"][(hist_df[value] == categories[1])]
 
     fig1 = px.histogram(hist_df1,
                         x="Total happiness",
@@ -137,13 +137,25 @@ def update_histogram(value):
                         range_x=[0, 28.5],
                         range_y=[0, 0.13])
     fig1.update_traces(marker_line_width=1,
-                       marker_line_color="white",
-                       marker_color="#d10373")
+                       marker_line_color="rgba(209,3,115,1)",
+                       marker_color="rgba(209,3,115,0.5)")
     fig1.update_layout(title_x=0.5)
     fig1.update_xaxes(title_text=f"Total happiness for {value} = {categories[0]}",
                       dtick=7,
                       tick0=7)
     fig1.update_yaxes(title_text="Frequency")
+    fig1.add_vline(x=hist_df1.mean(),
+                   line_color="#003896")
+    fig1.add_vline(x=hist_df1.median(),
+                   line_color="#006338")
+    fig1.add_vline(x=hist_df1.mean() + hist_df1.std(), 
+                   line_color="#0085a1")
+    fig1.add_vline(x=hist_df1.mean() - hist_df1.std(), 
+                   line_color="#0085a1")
+    fig1.add_vline(x=hist_df1.quantile(0.25),
+                   line_color="#6a2150")
+    fig1.add_vline(x=hist_df1.quantile(0.75),
+                   line_color="#6a2150")
 
     fig2 = px.histogram(hist_df2,
                         x="Total happiness",
@@ -152,13 +164,25 @@ def update_histogram(value):
                         range_x=[0, 28.5],
                         range_y=[0, 0.13])
     fig2.update_traces(marker_line_width=1,
-                       marker_line_color="white",
-                       marker_color="#9eab05")
+                       marker_line_color="rgba(158,171,5,1)",
+                       marker_color="rgba(158,171,5,0.5)")
     fig2.update_layout(title_x=0.5)
     fig2.update_xaxes(title_text=f"Total happiness for {value} = {categories[1]}",
                       dtick=7,
                       tick0=7)
     fig2.update_yaxes(title_text="Frequency")
+    fig2.add_vline(x=hist_df2.mean(),
+                   line_color="#003896")
+    fig2.add_vline(x=hist_df2.median(),
+                   line_color="#006338")
+    fig2.add_vline(x=hist_df2.mean() + hist_df2.std(), 
+                   line_color="#0085a1")
+    fig2.add_vline(x=hist_df2.mean() - hist_df2.std(), 
+                   line_color="#0085a1")
+    fig2.add_vline(x=hist_df2.quantile(0.25),
+                   line_color="#6a2150")
+    fig2.add_vline(x=hist_df2.quantile(0.75),
+                   line_color="#6a2150")
 
     return fig1, fig2
 
@@ -171,32 +195,52 @@ def update_histogram(value):
 def update_boxplot(value):
     box_df = happy_df[["Total happiness", value]].dropna()
     categories = box_df[value].unique()
-    box_df1 = box_df[(box_df[value] == categories[0])]
-    box_df2 = box_df[(box_df[value] == categories[1])]
+    box_df1 = box_df["Total happiness"][(box_df[value] == categories[0])]
+    box_df2 = box_df["Total happiness"][(box_df[value] == categories[1])]
 
-    fig1 = px.box(box_df1["Total happiness"],
+    fig1 = px.box(box_df1,
                   range_x=[0, 28.5],
                   orientation="h")
-    fig1.update_traces(boxmean="sd",
-                       marker_color="#d10373")
+    fig1.update_traces(marker_color="#d10373")
     fig1.update_xaxes(title_text=f"Total happiness for {value} = {categories[0]}",
                       dtick=7,
-                      tick0=7,
-                      showgrid=False)
+                      tick0=7)
     fig1.update_yaxes(visible=False,
                       showticklabels=False)
+    fig1.add_vline(x=box_df1.mean(),
+                   line_color="#003896")
+    fig1.add_vline(x=box_df1.median(),
+                   line_color="#006338")
+    fig1.add_vline(x=box_df1.mean() + box_df1.std(), 
+                   line_color="#0085a1")
+    fig1.add_vline(x=box_df1.mean() - box_df1.std(), 
+                   line_color="#0085a1")
+    fig1.add_vline(x=box_df1.quantile(0.25),
+                   line_color="#6a2150")
+    fig1.add_vline(x=box_df1.quantile(0.75),
+                   line_color="#6a2150")
 
-    fig2 = px.box(box_df2["Total happiness"],
+    fig2 = px.box(box_df2,
                   range_x=[0, 28.5],
                   orientation="h")
-    fig2.update_traces(boxmean="sd",
-                       marker_color="#9eab05")
+    fig2.update_traces(marker_color="#9eab05")
     fig2.update_xaxes(title_text=f"Total happiness for {value} = {categories[1]}",
                       dtick=7,
-                      tick0=7,
-                      showgrid=False)
+                      tick0=7)
     fig2.update_yaxes(visible=False,
                       showticklabels=False)
+    fig2.add_vline(x=box_df1.mean(),
+                   line_color="#003896")
+    fig2.add_vline(x=box_df2.median(),
+                   line_color="#006338")
+    fig2.add_vline(x=box_df2.mean() + box_df2.std(), 
+                   line_color="#0085a1")
+    fig2.add_vline(x=box_df2.mean() - box_df2.std(), 
+                   line_color="#0085a1")
+    fig2.add_vline(x=box_df2.quantile(0.25),
+                   line_color="#6a2150")
+    fig2.add_vline(x=box_df2.quantile(0.75),
+                   line_color="#6a2150")
 
     return fig1, fig2
 
