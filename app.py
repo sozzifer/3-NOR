@@ -20,41 +20,39 @@ app.layout = html.Div([
         html.Br()
     ], id="information"),
     html.Div([
-        html.Table([
-            html.Tr([html.Th(
-                     id="header1",
-                     colSpan=2,
-                     style={"font-weight": "bold"})]),
-            html.Tr([html.Td(["Mean:"], style={"text-align": "right"}),
-                     html.Td(id="mean1")]),
-            html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right"}),
-                     html.Td(id="std1")]),
-            html.Tr([html.Td(["First quartile:"], style={"text-align": "right"}),
-                     html.Td(id="q1_1")]),
-            html.Tr([html.Td(["Median:"], style={"text-align": "right"}),
-                     html.Td(id="median1")]),
-            html.Tr([html.Td(["Third quartile:"], style={"text-align": "right"}),
-                     html.Td(id="q3_1")]),
-            html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right"}),
-                     html.Td(id="iqr1")]),
+        html.Div([
+            html.P(id="header1"),
+            html.Table([
+                html.Tr([html.Td(["Mean:"], style={"text-align": "right"}),
+                        html.Td(id="mean1")]),
+                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right"}),
+                        html.Td(id="std1")]),
+                html.Tr([html.Td(["First quartile:"], style={"text-align": "right"}),
+                        html.Td(id="q1_1")]),
+                html.Tr([html.Td(["Median:"], style={"text-align": "right"}),
+                        html.Td(id="median1")]),
+                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right"}),
+                        html.Td(id="q3_1")]),
+                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right"}),
+                        html.Td(id="iqr1")]),
+            ])
         ], style={"width": '48%', 'display': 'inline-block'}),
-        html.Table([
-            html.Tr([html.Th(
-                     id="header2",
-                     colSpan=2,
-                     style={"font-weight": "bold"})]),
-            html.Tr([html.Td(["Mean:"], style={"text-align": "right"}),
-                     html.Td(id="mean2")]),
-            html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right"}),
-                     html.Td(id="std2")]),
-            html.Tr([html.Td(["First quartile:"], style={"text-align": "right"}),
-                     html.Td(id="q1_2")]),
-            html.Tr([html.Td(["Median:"], style={"text-align": "right"}),
-                     html.Td(id="median2")]),
-            html.Tr([html.Td(["Third quartile:"], style={"text-align": "right"}),
-                     html.Td(id="q3_2")]),
-            html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right"}),
-                     html.Td(id="iqr2")]),
+        html.Div([
+            html.P(id="header2"),
+            html.Table([
+                html.Tr([html.Td(["Mean:"], style={"text-align": "right"}),
+                        html.Td(id="mean2")]),
+                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right"}),
+                        html.Td(id="std2")]),
+                html.Tr([html.Td(["First quartile:"], style={"text-align": "right"}),
+                        html.Td(id="q1_2")]),
+                html.Tr([html.Td(["Median:"], style={"text-align": "right"}),
+                        html.Td(id="median2")]),
+                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right"}),
+                        html.Td(id="q3_2")]),
+                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right"}),
+                        html.Td(id="iqr2")]),
+            ])
         ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
     ], id="descriptive"),
     html.Div([
@@ -133,13 +131,12 @@ def update_histogram(value):
     fig1 = px.histogram(hist_df1,
                         x="Total happiness",
                         histnorm="probability density",
-                        title=categories[0],
                         range_x=[0, 28.5],
                         range_y=[0, 0.13])
     fig1.update_traces(marker_line_width=1,
                        marker_line_color="rgba(209,3,115,1)",
                        marker_color="rgba(209,3,115,0.5)")
-    fig1.update_layout(title_x=0.5)
+    fig1.update_layout(margin=dict(l=10, r=10, t=10, b=10)),
     fig1.update_xaxes(title_text=f"Total happiness for {value} = {categories[0]}",
                       dtick=7,
                       tick0=7)
@@ -160,13 +157,12 @@ def update_histogram(value):
     fig2 = px.histogram(hist_df2,
                         x="Total happiness",
                         histnorm="probability density",
-                        title=categories[1],
                         range_x=[0, 28.5],
                         range_y=[0, 0.13])
     fig2.update_traces(marker_line_width=1,
                        marker_line_color="rgba(158,171,5,1)",
                        marker_color="rgba(158,171,5,0.5)")
-    fig2.update_layout(title_x=0.5)
+    fig2.update_layout(margin=dict(l=10, r=10, t=10, b=10))
     fig2.update_xaxes(title_text=f"Total happiness for {value} = {categories[1]}",
                       dtick=7,
                       tick0=7)
@@ -202,6 +198,7 @@ def update_boxplot(value):
                   range_x=[0, 28.5],
                   orientation="h")
     fig1.update_traces(marker_color="#d10373")
+    fig1.update_layout(margin=dict(l=10, r=10, t=10, b=10))
     fig1.update_xaxes(title_text=f"Total happiness for {value} = {categories[0]}",
                       dtick=7,
                       tick0=7)
@@ -224,6 +221,7 @@ def update_boxplot(value):
                   range_x=[0, 28.5],
                   orientation="h")
     fig2.update_traces(marker_color="#9eab05")
+    fig2.update_layout(margin=dict(l=10, r=10, t=10, b=10))
     fig2.update_xaxes(title_text=f"Total happiness for {value} = {categories[1]}",
                       dtick=7,
                       tick0=7)
