@@ -22,7 +22,8 @@ app.layout = dbc.Container([
         ], xs=12, sm=6, md=6, lg=6, xl=6),
         dbc.Col([
             html.P(
-                "Select a categorical variable from the dropdown list to compare total happiness for different groups.")
+                "Select a categorical variable from the dropdown list to compare total happiness for different groups.",
+                style={"font-weight": "bold"})
         ], xs=12, sm=6, md=6, lg=6, xl=6)
     ]),
     dbc.Row([
