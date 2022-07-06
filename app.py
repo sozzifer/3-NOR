@@ -9,7 +9,7 @@ app = Dash(__name__,
            title="Total happiness",
            external_stylesheets=[dbc.themes.BOOTSTRAP],
            meta_tags=[{"name": "viewport",
-                       "content": "width=device-width, initial-scale=1.0"}])
+                       "content": "width=device-width, initial-scale=1.0, maximum-scale=1.0"}])
 
 app.layout = dbc.Container([
     dbc.Row([
@@ -18,55 +18,74 @@ app.layout = dbc.Container([
                          value="Sex",
                          id="cols-dropdown",
                          clearable=False)
-        ], xs=12, sm=6, md=6, lg=6, xl=6),
+        ], xs=12, sm=3, md=3, lg=3, xl=3),
         dbc.Col([
             html.P(
                 "Select a categorical variable from the dropdown list to compare total happiness for different groups.",
                 style={"font-weight": "bold"})
-        ], xs=12, sm=6, md=6, lg=6, xl=6)
-    ]),
+        ], xs=12, sm=9, md=9, lg=9, xl=9)
+    ], style={"padding": 20}),
     dbc.Row([
         dbc.Col([
-            html.P("Descriptive statistics",
-                   style={"text-align": "center",
-                          "font-weight": "bold",
-                          "margin": 0}),
             html.P(id="header1",
                    style={"text-align": "center",
                           "font-weight": "bold"}),
             html.Table([
-                html.Tr([html.Td(["Mean:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="mean1", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="std1", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["First quartile:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="q1_1", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Median:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="median1", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="q3_1", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="iqr1", style={"padding": "0 5px"})]),
+                html.Tr([html.Td(["Mean:"], style={"text-align": "right",
+                                                   "color": "#003896",
+                                                   "font-weight": "bold"}),
+                        html.Td(id="mean1")]),
+                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right",
+                                                                 "color": "#0085a1",
+                                                                 "font-weight": "bold"}),
+                        html.Td(id="std1")]),
+                html.Tr([html.Td(["First quartile:"], style={"text-align": "right",
+                                                             "color": "#6a2150",
+                                                             "font-weight": "bold"}),
+                        html.Td(id="q1_1")]),
+                html.Tr([html.Td(["Median:"], style={"text-align": "right",
+                                                     "color": "#006338",
+                                                     "font-weight": "bold"}),
+                        html.Td(id="median1")]),
+                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right",
+                                                             "color": "#6a2150",
+                                                             "font-weight": "bold"}),
+                        html.Td(id="q3_1")]),
+                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right",
+                                                                  "color": "#6a2150",
+                                                                  "font-weight": "bold"}),
+                        html.Td(id="iqr1")]),
             ], style={"margin": "0 auto"})
         ], xs=6, sm=6, md=6, lg=6, xl=6),
         dbc.Col([
-            html.P("Descriptive statistics", style={
-                   "text-align": "center", "font-weight": "bold", "margin": 0}),
-            html.P(id="header2", style={
-                "text-align": "center", "font-weight": "bold"}),
+            html.P(id="header2",
+                   style={"text-align": "center",
+                          "font-weight": "bold"}),
             html.Table([
-                html.Tr([html.Td(["Mean:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="mean2", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="std2", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["First quartile:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="q1_2", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Median:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="median2", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="q3_2", style={"padding": "0 5px"})]),
-                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right", "padding": "0 5px"}),
-                        html.Td(id="iqr2", style={"padding": "0 5px"})]),
+                html.Tr([html.Td(["Mean:"], style={"text-align": "right",
+                                                   "color": "#003896",
+                                                   "font-weight": "bold"}),
+                        html.Td(id="mean2")]),
+                html.Tr([html.Td(["Standard deviation:"], style={"text-align": "right",
+                                                                 "color": "#0085a1",
+                                                                 "font-weight": "bold"}),
+                        html.Td(id="std2")]),
+                html.Tr([html.Td(["First quartile:"], style={"text-align": "right",
+                                                             "color": "#6a2150",
+                                                             "font-weight": "bold"}),
+                        html.Td(id="q1_2")]),
+                html.Tr([html.Td(["Median:"], style={"text-align": "right",
+                                                     "color": "#006338",
+                                                     "font-weight": "bold"}),
+                        html.Td(id="median2")]),
+                html.Tr([html.Td(["Third quartile:"], style={"text-align": "right",
+                                                             "color": "#6a2150",
+                                                             "font-weight": "bold"}),
+                        html.Td(id="q3_2")]),
+                html.Tr([html.Td(["Interquartile range:"], style={"text-align": "right",
+                                                                  "color": "#6a2150",
+                                                                  "font-weight": "bold"}),
+                        html.Td(id="iqr2")]),
             ], style={"margin": "0 auto"})
         ], xs=6, sm=6, md=6, lg=6, xl=6)
     ]),
@@ -112,8 +131,8 @@ def update_statistics(value):
     stats_df1 = stats_df["Total happiness"][(stats_df[value] == categories[0])]
     stats_df2 = stats_df["Total happiness"][(stats_df[value] == categories[1])]
 
-    header1 = f"{value} = {categories[0]}"
-    header2 = f"{value} = {categories[1]}"
+    header1 = f"Descriptive statistics ({categories[0]})"
+    header2 = f"Descriptive statistics ({categories[1]})"
 
     mean1 = round(stats_df1.mean(), 3)
     mean2 = round(stats_df2.mean(), 3)
@@ -151,15 +170,16 @@ def update_histogram(value):
                         x="Total happiness",
                         histnorm="probability density",
                         range_x=[0, 28.5],
-                        range_y=[0, 0.13])
+                        range_y=[0, 0.13],
+                        height=300)
     fig1.update_traces(marker_line_width=1,
                        marker_line_color="rgba(209,3,115,1)",
                        marker_color="rgba(209,3,115,0.5)")
     fig1.update_layout(margin=dict(t=10, b=10)),
-    fig1.update_xaxes(title_text=f"Histogram of Total happiness for {value} = {categories[0]}",
+    fig1.update_xaxes(title_text=f"Histogram of Total happiness for {categories[0]}",
                       dtick=7,
                       tick0=7)
-    fig1.update_yaxes(title_text=None)
+    fig1.update_yaxes(title_text="Frequency")
     fig1.add_vline(x=hist_df1.mean(),
                    line_color="#003896")
     fig1.add_vline(x=hist_df1.median(),
@@ -177,12 +197,13 @@ def update_histogram(value):
                         x="Total happiness",
                         histnorm="probability density",
                         range_x=[0, 28.5],
-                        range_y=[0, 0.13])
+                        range_y=[0, 0.13],
+                        height=300)
     fig2.update_traces(marker_line_width=1,
                        marker_line_color="rgba(158,171,5,1)",
                        marker_color="rgba(158,171,5,0.5)")
     fig2.update_layout(margin=dict(t=10, b=10))
-    fig2.update_xaxes(title_text=f"Histogram of Total happiness for {value} = {categories[1]}",
+    fig2.update_xaxes(title_text=f"Histogram of Total happiness for {categories[1]}",
                       dtick=7,
                       tick0=7)
     fig2.update_yaxes(title_text="Frequency")
@@ -215,10 +236,11 @@ def update_boxplot(value):
 
     fig1 = px.box(box_df1,
                   range_x=[0, 28.5],
-                  orientation="h")
+                  orientation="h",
+                  height=250)
     fig1.update_traces(marker_color="#d10373")
     fig1.update_layout(margin=dict(t=10, b=10))
-    fig1.update_xaxes(title_text=f"Boxplot of Total happiness for {value} = {categories[0]}",
+    fig1.update_xaxes(title_text=f"Boxplot of Total happiness for {categories[0]}",
                       dtick=7,
                       tick0=7)
     fig1.update_yaxes(visible=False,
@@ -238,15 +260,16 @@ def update_boxplot(value):
 
     fig2 = px.box(box_df2,
                   range_x=[0, 28.5],
-                  orientation="h")
+                  orientation="h",
+                  height=250)
     fig2.update_traces(marker_color="#9eab05")
     fig2.update_layout(margin=dict(t=10, b=10))
-    fig2.update_xaxes(title_text=f"Boxplot of Total happiness for {value} = {categories[1]}",
+    fig2.update_xaxes(title_text=f"Boxplot of Total happiness for {categories[1]}",
                       dtick=7,
                       tick0=7)
     fig2.update_yaxes(visible=False,
                       showticklabels=False)
-    fig2.add_vline(x=box_df1.mean(),
+    fig2.add_vline(x=box_df2.mean(),
                    line_color="#003896")
     fig2.add_vline(x=box_df2.median(),
                    line_color="#006338")
@@ -263,4 +286,4 @@ def update_boxplot(value):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=False, host="0.0.0.0", port=8080)
+    app.run_server(debug=True, host="0.0.0.0", port=8080)
