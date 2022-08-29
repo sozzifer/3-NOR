@@ -83,5 +83,6 @@ def create_blank_fig():
                    marker_opacity=0,
                    hovertemplate="Mean - 3SD: %{x:.3f}<extra></extra>",
                    showlegend=False))
+    blank_fig.update_layout(dragmode=False)
     return blank_fig
 

@@ -14,9 +14,6 @@ app = Dash(__name__,
            )
 
 app.layout = dbc.Container([
-    # dbc.Row([
-    #     html.H1("Normal distribution")
-    # ]),
     dbc.Row([
         dbc.Col([
             dbc.Card([
@@ -30,19 +27,22 @@ app.layout = dbc.Container([
                     "Pay particular attention to how the scales of the x and y axes change when you enter different values for the mean, standard deviation, z1, and z2."
                 ])
             ]),
-            
-        ], xs=12, sm=12, md=12, lg=4, xl=4),
+        ], xs=12, lg=4),
         dbc.Col([
             html.Div([
             dcc.Graph(id="normal-dist-fig",
                       figure=create_blank_fig(),
-                      config={"displayModeBar": False})
+                      config={"displayModeBar": False,
+                              "doubleClick": False,
+                              "editable": False,
+                              "scrollZoom": False,
+                              "showAxisDragHandles": False})
             ], role="img"),
             html.Div(id="sr-norm",
                      children=[],
                      className="sr-only",
                      **{"aria-live": "polite"})
-        ], xs=12, sm=12, md=12, lg=8, xl=8)
+        ], xs=12, lg=8)
     ]),
     dbc.Row([
         dbc.Col([
@@ -51,7 +51,8 @@ app.layout = dbc.Container([
                     html.H4("Results"),
                     html.Div([
                         html.P(children=[
-                            html.Span("Mean: ", className="bold-p"),
+                            html.Span("Mean: ",
+                                      className="bold-p"),
                             html.Span(id="current-mu")
                         ]),
                         html.P(children=[
@@ -60,30 +61,37 @@ app.layout = dbc.Container([
                             html.Span(id="current-sigma")
                         ]),
                         html.P(children=[
-                            html.Span("Probability: ", className="bold-p"),
+                            html.Span("Probability: ",
+                                      className="bold-p"),
                             html.Span(id="probability")
                         ]),
                     ], id="output", style={"display": "none"}, **{"aria-live": "polite"})
                 ])
             ])
-        ], xs=12, sm=12, md=12, lg=4, xl=4),
+        ], xs=12, lg=4),
         dbc.Col([
-            dbc.Label("Mean", className="label", html_for="mu"),
+            dbc.Label("Mean",
+                      className="label",
+                      html_for="mu"),
             dbc.Input(id="mu",
                       value=0,
                       type="number",
                       required=True,
                       debounce=True),
-            dbc.Label("Standard deviation", className="label", html_for="sigma"),
+            dbc.Label("Standard deviation",
+                      className="label",
+                      html_for="sigma"),
             dbc.Input(id="sigma",
                       value=1,
                       min=0.1,
                       type="number",
                       required=True,
                       debounce=True)
-        ], xs=4, sm=4, md=4, lg=2, xl=2),
+        ], xs=4, lg=2),
         dbc.Col([
-            dbc.Label("Calculation type", className="label", html_for="calc-type"),
+            dbc.Label("Calculation type",
+                      className="label",
+                      html_for="calc-type"),
             html.Div([
                 dbc.RadioItems(id="calc-type",
                                options=[
@@ -102,10 +110,12 @@ app.layout = dbc.Container([
                                value="<",
                                label_style={"display": "block", "margin-bottom": 5})
             ], **{"aria-live": "polite"})
-        ], xs=5, sm=5, md=4, lg=2, xl=2),
+        ], xs=5, md=4, lg=2),
         dbc.Col([
             html.Div([
-                dbc.Label("z1", className="label", html_for="z1"),
+                dbc.Label("z1",
+                          className="label",
+                          html_for="z1"),
                 dbc.Input(id="z1",
                         type="number",
                         value=None,
@@ -113,7 +123,9 @@ app.layout = dbc.Container([
                         min=-4,
                         max=4,
                         required=True),
-                dbc.Label("z2", className="label", html_for="z2"),
+                dbc.Label("z2",
+                          className="label",
+                          html_for="z2"),
                 dbc.Input(id="z2",
                         type="number",
                         value=None,
@@ -121,17 +133,20 @@ app.layout = dbc.Container([
                         min=-4,
                         max=4,
                         required=False),
-                dbc.FormFeedback(id="error", children=[], type="invalid")
+                dbc.FormFeedback(id="error",
+                                 children=[],
+                                 type="invalid")
             ])
-        ], xs=3, sm=3, md=2, lg=2, xl=2),
+        ], xs=3, md=2),
         dbc.Col([
             html.Br(),
-            html.Div([dbc.Button(id="submit",
-                       n_clicks=0,
-                       children="Submit",
-                       class_name="button",
-                       style={"width": 100})
+            html.Div([
+                dbc.Button(id="submit",
+                           n_clicks=0,
+                           children="Submit",
+                           class_name="button",
+                           style={"width": 100})
             ], className="d-flex justify-content-center")
-        ], xs=12, sm=12, md=2, lg=2, xl=2)
+        ], xs=12, md=2)
     ], class_name="justify-content-right")
 ], fluid=True)

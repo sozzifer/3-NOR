@@ -194,6 +194,7 @@ def empirical_rule(fig, mu, sigma, norm_pdf):
                    marker_opacity=0,
                    hovertemplate="Mean - 3SD: %{x:.3f}<extra></extra>",
                    showlegend=False))
+    fig.update_layout(dragmode=False)
 
 
 @app.callback(
@@ -234,5 +235,5 @@ def display_z_inputs(calc_type):
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=8080, dev_tools_ui=False)
-    # app.run(debug=True)
+    # app.run(debug=False, host="0.0.0.0", port=8080, dev_tools_ui=False)
+    app.run(debug=True)
