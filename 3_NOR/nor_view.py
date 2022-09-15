@@ -2,6 +2,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 from nor_model import create_blank_fig
 
+# Specify HTML <head> elements
 app = Dash(__name__,
            title="Normal distribution",
            update_title=None,
@@ -9,15 +10,16 @@ app = Dash(__name__,
            meta_tags=[{"name": "viewport",
                        "content": "width=device-width,\
                                    initial-scale=1.0,\
-                                   maximum-scale=1.0"
-                       }]
-           )
+                                   maximum-scale=1.0"}])
 
+# Specify app layout (HTML <body> elements) using dash.html, dash.dcc and dash_bootstrap_components
+# All component IDs should relate to the Input or Output of callback functions in *_controller.py
 app.layout = dbc.Container([
+    # Row - Instructions and Graph
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardBody(children=[
+                dbc.CardBody([
                     "This tool will allow you to view the area under the normal distribution curve  for different values of z1 and z2. To use standard units, set the mean as 0 and the standard deviation as 1.",
                     html.Br(),
                     html.Br(),
@@ -29,43 +31,46 @@ app.layout = dbc.Container([
             ]),
         ], xs=12, lg=4),
         dbc.Col([
+            # Graph components are placed inside a Div with role="img" to manage the experience for screen reader users
             html.Div([
-            dcc.Graph(id="normal-dist-fig",
-                      figure=create_blank_fig(),
-                      config={"displayModeBar": False,
-                              "doubleClick": False,
-                              "editable": False,
-                              "scrollZoom": False,
-                              "showAxisDragHandles": False})
-            ], role="img"),
+                dcc.Graph(id="normal-dist-fig",
+                          figure=create_blank_fig(),
+                          config={"displayModeBar": False,
+                                  "doubleClick": False,
+                                  "editable": False,
+                                  "scrollZoom": False,
+                                  "showAxisDragHandles": False})
+            ], role="img", **{"aria-hidden": "true"}),
+            # A second Div is used to associate alt text with the relevant Graph component to manage the experience for screen reader users, styled using CSS class sr-only
             html.Div(id="sr-norm",
                      children=[],
                      className="sr-only",
                      **{"aria-live": "polite"})
         ], xs=12, lg=8)
     ]),
+    # Row - Results and User Input
     dbc.Row([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    html.H4("Results"),
                     html.Div([
-                        html.P(children=[
+                        html.H4("Results"),
+                        html.P([
                             html.Span("Mean: ",
                                       className="bold-p"),
                             html.Span(id="current-mu")
                         ]),
-                        html.P(children=[
+                        html.P([
                             html.Span("Standard deviation: ",
                                       className="bold-p"),
                             html.Span(id="current-sigma")
                         ]),
-                        html.P(children=[
+                        html.P([
                             html.Span("Probability: ",
                                       className="bold-p"),
                             html.Span(id="probability")
                         ]),
-                    ], id="output", style={"display": "none"}, **{"aria-live": "polite"})
+                    ], id="results", style={"display": "none"}, **{"aria-live": "polite", "aria-atomic": "true"})
                 ])
             ])
         ], xs=12, lg=4),
@@ -117,22 +122,22 @@ app.layout = dbc.Container([
                           className="label",
                           html_for="z1"),
                 dbc.Input(id="z1",
-                        type="number",
-                        value=None,
-                        disabled=False,
-                        min=-4,
-                        max=4,
-                        required=True),
+                          type="number",
+                          value=None,
+                          disabled=False,
+                          min=-4,
+                          max=4,
+                          required=True),
                 dbc.Label("z2",
                           className="label",
                           html_for="z2"),
                 dbc.Input(id="z2",
-                        type="number",
-                        value=None,
-                        disabled=True,
-                        min=-4,
-                        max=4,
-                        required=False),
+                          type="number",
+                          value=None,
+                          disabled=True,
+                          min=-4,
+                          max=4,
+                          required=False),
                 dbc.FormFeedback(id="error",
                                  children=[],
                                  type="invalid")
