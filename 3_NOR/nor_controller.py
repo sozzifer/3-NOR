@@ -1,4 +1,5 @@
 from dash import Input, Output, State, exceptions, no_update
+import math
 import numpy as np
 import plotly.graph_objects as go
 import scipy.stats as stat
@@ -41,12 +42,15 @@ def update_graph(n_clicks, mu, sigma, calc_type, z1, z2):
         fig = go.Figure(
             go.Scatter(x=x,
                        y=norm_x,
+                       dx=1,
+                       x0=-4,
                        marker_color=stat_colours["norm"],
                        name="Normal distribution",
                        hoverinfo="skip"),
             layout={"margin": dict(t=20, b=10, l=20, r=20),
                     "height": 400,
                     "font_size": 14})
+        fig.update_xaxes(dtick=math.ceil(sigma/2))
         # Add graph trace for Z < z1 or Z > z1
         if calc_type == "<" or calc_type == ">":
             # Input validation for z1
@@ -90,11 +94,11 @@ def update_graph(n_clicks, mu, sigma, calc_type, z1, z2):
                     probability, prob_between_x1_x2, norm_pdf = calculate_probability_z1_z2(mu, sigma, z1, z2, calc_type)
                     fig.add_trace(
                         go.Scatter(x=prob_between_x1_x2,
-                                    y=norm_pdf,
-                                    name="Probability",
-                                    marker_color=stat_colours["norm"],
-                                    fill="tozeroy",
-                                    fillcolor=stat_colours["z"]))
+                                   y=norm_pdf,
+                                   name="Probability",
+                                   marker_color=stat_colours["norm"],
+                                   fill="tozeroy",
+                                   fillcolor=stat_colours["z"]))
                     empirical_rule(fig, mu, sigma, norm_x)
                     # Screen reader text
                     sr_norm = f"Normal distribution with mean {mu}, standard deviation {sigma}, and probability that Z is between {z1} and {z2} of {probability}%"
@@ -102,20 +106,20 @@ def update_graph(n_clicks, mu, sigma, calc_type, z1, z2):
                     probability, prob_less_than_x1, prob_greater_than_x2, norm_pdf1, norm_pdf2 = calculate_probability_z1_z2(mu, sigma, z1, z2, calc_type)
                     fig.add_trace(
                         go.Scatter(x=prob_less_than_x1,
-                                    y=norm_pdf1,
-                                    name="Probability",
-                                    marker_color=stat_colours["norm"],
-                                    fill="tozeroy",
-                                    fillcolor=stat_colours["z"]))
+                                   y=norm_pdf1,
+                                   name="Probability",
+                                   marker_color=stat_colours["norm"],
+                                   fill="tozeroy",
+                                   fillcolor=stat_colours["z"]))
                     fig.add_trace(
                         go.Scatter(x=prob_greater_than_x2,
-                                    y=norm_pdf2,
-                                    marker_color=stat_colours["norm"],
-                                    fill="tozeroy",
-                                    fillcolor=stat_colours["z"],
-                                    showlegend=False))
+                                   y=norm_pdf2,
+                                   marker_color=stat_colours["norm"],
+                                   fill="tozeroy",
+                                   fillcolor=stat_colours["z"],
+                                   showlegend=False))
                     empirical_rule(fig, mu, sigma, norm_x)
-                                        # Screen reader text
+                    # Screen reader text
                     sr_norm = f"Normal distribution with mean {mu}, standard deviation {sigma}, and probability that Z is less than {z1} and greater than {z2} of {probability}%"
     return fig, sr_norm, False, False, "", {"display": "inline"}, f"{mu}", f"{sigma}", f"{probability}%"
 
@@ -214,6 +218,6 @@ def display_z_inputs(calc_type):
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, dev_tools_ui=False)
+    # app.run(debug=True)
     # To deploy on Docker, replace app.run(debug=True) with the following:
     app.run(debug=False, host="0.0.0.0", port=8080, dev_tools_ui=False)
